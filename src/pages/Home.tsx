@@ -199,9 +199,7 @@ const Home = () => {
                   className="flex flex-col"
                 >
                   <div className="text-4xl md:text-5xl font-serif text-accent mb-2">
-                      <React.Suspense fallback={<span>0</span>}>
-                        <AnimatedCounter value={stat.value} decimals={stat.dec} duration={2} />
-                      </React.Suspense>
+                    <AnimatedCounter value={stat.value} decimals={stat.dec} duration={2} />
                   </div>
                   <div className="text-sm uppercase tracking-widest text-muted-foreground">
                     {stat.label}
