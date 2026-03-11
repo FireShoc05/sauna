@@ -14,7 +14,15 @@ const token = process.env.TELEGRAM_BOT_TOKEN;
 const adminChatId = process.env.ADMIN_CHAT_ID;
 
 // Enable CORS with credentials for React app
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({
+  origin: [
+    'https://sauna-fireshoc05s-projects.vercel.app',
+    'https://sauna-git-main-fireshoc05s-projects.vercel.app',
+    /\.vercel\.app$/,
+    'http://localhost:5173'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 

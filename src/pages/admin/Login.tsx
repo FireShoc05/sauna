@@ -18,7 +18,7 @@ const AdminLogin = () => {
 
     try {
       // NOTE: Configure correct backend URL (e.g. from env)
-      const res = await axios.post('http://localhost:3001/api/admin/login', { login, password }, {
+      const res = await axios.post('https://sauna-bot-uf1j.onrender.com/api/admin/login', { login, password }, {
         withCredentials: true
       });
       

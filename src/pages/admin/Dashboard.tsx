@@ -35,7 +35,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/api/admin/stats', {
+        const res = await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/stats', {
           withCredentials: true
         });
         setData(res.data);

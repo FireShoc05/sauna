@@ -69,7 +69,7 @@ const Home = () => {
     setErrorMsg('');
 
     try {
-      const res = await fetch('http://localhost:3001/api/book', {
+      const res = await fetch('https://sauna-bot-uf1j.onrender.com/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

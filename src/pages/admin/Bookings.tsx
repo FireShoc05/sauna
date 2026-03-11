@@ -45,7 +45,7 @@ const Bookings = () => {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/admin/bookings', { withCredentials: true });
+      const res = await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/bookings', { withCredentials: true });
       setBookings(res.data.bookings);
     } catch (err) {
       console.error(err);
@@ -60,7 +60,7 @@ const Bookings = () => {
 
   const handleUpdateStatus = async (id: number, status: string) => {
     try {
-      await axios.put(`http://localhost:3001/api/admin/bookings/${id}`, { status }, { withCredentials: true });
+      await axios.put(`https://sauna-bot-uf1j.onrender.com/api/admin/bookings/${id}`, { status }, { withCredentials: true });
       fetchBookings();
     } catch (err) {
       console.error(err);
@@ -88,7 +88,7 @@ const Bookings = () => {
     e.preventDefault();
     if (!activeBooking) return;
     try {
-      await axios.put(`http://localhost:3001/api/admin/bookings/${activeBooking.id}`, {
+      await axios.put(`https://sauna-bot-uf1j.onrender.com/api/admin/bookings/${activeBooking.id}`, {
         date: editDate,
         time: editTime,
         guests: editGuests,
@@ -106,7 +106,7 @@ const Bookings = () => {
     e.preventDefault();
     if (!activeBooking) return;
     try {
-      await axios.put(`http://localhost:3001/api/admin/bookings/${activeBooking.id}`, {
+      await axios.put(`https://sauna-bot-uf1j.onrender.com/api/admin/bookings/${activeBooking.id}`, {
         status: 'Закрыта',
         amount: parseFloat(amountInput),
         notes: notesInput

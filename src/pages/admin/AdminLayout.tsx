@@ -19,7 +19,7 @@ const AdminLayout = () => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        await axios.get('http://localhost:3001/api/admin/bookings', { withCredentials: true });
+        await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/bookings', { withCredentials: true });
         setIsAuthenticated(true);
       } catch (error) {
         navigate('/admin/login');
@@ -30,7 +30,7 @@ const AdminLayout = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:3001/api/admin/logout', {}, { withCredentials: true });
+      await axios.post('https://sauna-bot-uf1j.onrender.com/api/admin/logout', {}, { withCredentials: true });
     } catch (error) {
       console.error('Logout failed', error);
     } finally {
