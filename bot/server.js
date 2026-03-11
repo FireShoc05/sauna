@@ -36,13 +36,13 @@ app.post('/api/book', async (req, res) => {
   try {
     const { name, phone, date, time, guests, comment } = req.body;
     
-    // Simple rate limiting (max 3 req per hour per IP)
-    const ip = req.ip || req.socket.remoteAddress;
+    // Simple rate limiting (max 10 req per 10 minutes per IP)
+    const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.ip || req.socket.remoteAddress;
     const now = Date.now();
     const timestamps = rateLimits.get(ip) || [];
-    const validTimestamps = timestamps.filter(t => now - t < 3600000); // 1 hour
+    const validTimestamps = timestamps.filter(t => now - t < 600000); // 10 minutes
     
-    if (validTimestamps.length >= 3) {
+    if (validTimestamps.length >= 10) {
       return res.status(429).json({ error: 'Слишком много запросов. Попробуйте позже.' });
     }
     
