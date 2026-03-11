@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { DollarSign, FileText, Activity, Users } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, 
   PieChart, Pie, Cell, Legend
 } from 'recharts';
-import { DollarSign, FileText, Activity, Users } from 'lucide-react';
+import api from '@/lib/api';
 
 interface StatsData {
   cards: {
@@ -35,9 +35,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/stats', {
-          withCredentials: true
-        });
+        const res = await api.get('/api/admin/stats');
         setData(res.data);
       } catch (err) {
         console.error('Failed to load stats', err);

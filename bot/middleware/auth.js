@@ -5,7 +5,14 @@ dotenv.config();
 const SESSION_SECRET = process.env.SESSION_SECRET || 'super-secret-key-for-sauna-dev';
 
 export const authMiddleware = (req, res, next) => {
-  const token = req.cookies.adminToken;
+  // Support both Authorization header and cookies
+  let token = null;
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.split(' ')[1];
+  } else if (req.cookies && req.cookies.adminToken) {
+    token = req.cookies.adminToken;
+  }
 
   if (!token) {
     return res.status(401).json({ error: 'Необходима авторизация' });

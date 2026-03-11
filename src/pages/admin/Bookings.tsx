@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '@/lib/api';
 import { Check, X, CreditCard, Search, FileDown, Eye, Edit } from 'lucide-react';
 
 interface Booking {
@@ -45,7 +45,7 @@ const Bookings = () => {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/bookings', { withCredentials: true });
+      const res = await api.get('/api/admin/bookings');
       setBookings(res.data.bookings);
     } catch (err) {
       console.error(err);
@@ -60,7 +60,7 @@ const Bookings = () => {
 
   const handleUpdateStatus = async (id: number, status: string) => {
     try {
-      await axios.put(`https://sauna-bot-uf1j.onrender.com/api/admin/bookings/${id}`, { status }, { withCredentials: true });
+      await api.put(`/api/admin/bookings/${id}`, { status });
       fetchBookings();
     } catch (err) {
       console.error(err);
@@ -88,12 +88,12 @@ const Bookings = () => {
     e.preventDefault();
     if (!activeBooking) return;
     try {
-      await axios.put(`https://sauna-bot-uf1j.onrender.com/api/admin/bookings/${activeBooking.id}`, {
+      await api.put(`/api/admin/bookings/${activeBooking.id}`, {
         date: editDate,
         time: editTime,
         guests: editGuests,
         status: editStatus
-      }, { withCredentials: true });
+      });
       setEditModalOpen(false);
       fetchBookings();
     } catch (err) {
@@ -106,11 +106,11 @@ const Bookings = () => {
     e.preventDefault();
     if (!activeBooking) return;
     try {
-      await axios.put(`https://sauna-bot-uf1j.onrender.com/api/admin/bookings/${activeBooking.id}`, {
+      await api.put(`/api/admin/bookings/${activeBooking.id}`, {
         status: 'Закрыта',
         amount: parseFloat(amountInput),
         notes: notesInput
-      }, { withCredentials: true });
+      });
       setCloseModalOpen(false);
       fetchBookings();
     } catch (err) {

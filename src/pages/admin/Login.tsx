@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '@/lib/api';
 
 const AdminLogin = () => {
   const [login, setLogin] = useState('');
@@ -17,12 +17,10 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      // NOTE: Configure correct backend URL (e.g. from env)
-      const res = await axios.post('https://sauna-bot-uf1j.onrender.com/api/admin/login', { login, password }, {
-        withCredentials: true
-      });
+      const res = await api.post('/api/admin/login', { login, password });
       
-      if (res.data.success) {
+      if (res.data.success && res.data.token) {
+        localStorage.setItem('adminToken', res.data.token);
         navigate('/admin');
       }
     } catch (err: any) {

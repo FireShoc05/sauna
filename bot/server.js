@@ -102,20 +102,13 @@ app.post('/api/admin/login', (req, res) => {
   
   if (login === process.env.ADMIN_LOGIN && password === process.env.ADMIN_PASSWORD) {
     const token = generateToken({ login });
-    res.cookie('adminToken', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
-    });
-    res.json({ success: true });
+    res.json({ success: true, token });
   } else {
     res.status(401).json({ error: 'Неверный логин или пароль' });
   }
 });
 
 app.post('/api/admin/logout', (req, res) => {
-  res.clearCookie('adminToken');
   res.json({ success: true });
 });
 

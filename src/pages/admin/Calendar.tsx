@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '@/lib/api';
 import { 
   format, startOfMonth, endOfMonth, eachDayOfInterval, 
   startOfWeek, endOfWeek, isSameMonth, isToday, addMonths, subMonths
@@ -26,7 +26,7 @@ const Calendar = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/bookings', { withCredentials: true });
+        const res = await api.get('/api/admin/bookings');
         setBookings(res.data.bookings.filter((b: Booking) => b.status !== 'Отклонена'));
       } catch (err) {
         console.error(err);

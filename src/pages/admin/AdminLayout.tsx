@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, Calendar, Settings, LogOut, FileText } from 'lucide-react';
-import axios from 'axios';
+import api from '@/lib/api';
 
 const navItems = [
   { path: '/admin', icon: <LayoutDashboard size={20} />, label: 'Дашборд' },
@@ -19,7 +19,7 @@ const AdminLayout = () => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/bookings', { withCredentials: true });
+        await api.get('/api/admin/bookings');
         setIsAuthenticated(true);
       } catch (error) {
         navigate('/admin/login');
@@ -28,14 +28,9 @@ const AdminLayout = () => {
     verifyAuth();
   }, [navigate]);
 
-  const handleLogout = async () => {
-    try {
-      await axios.post('https://sauna-bot-uf1j.onrender.com/api/admin/logout', {}, { withCredentials: true });
-    } catch (error) {
-      console.error('Logout failed', error);
-    } finally {
-      navigate('/admin/login');
-    }
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    navigate('/admin/login');
   };
 
   if (!isAuthenticated) return null;

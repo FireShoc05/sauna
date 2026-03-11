@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '@/lib/api';
 import { Search, MessageCircle, Star, RefreshCw } from 'lucide-react';
 
 interface Guest {
@@ -19,7 +19,7 @@ const Guests = () => {
   useEffect(() => {
     const fetchGuests = async () => {
       try {
-        const res = await axios.get('https://sauna-bot-uf1j.onrender.com/api/admin/guests', { withCredentials: true });
+        const res = await api.get('/api/admin/guests');
         setGuests(res.data.guests);
       } catch (err) {
         console.error(err);
